@@ -55,8 +55,8 @@ const Login = ({ setLoggedInUser, register }) => {
     };
 
     return (
-        <div className="flex items-start justify-center min-h-screen bg-gray-100">
-            <form className="bg-white p-6 rounded-lg shadow-md min-w-[400px] mt-10" onSubmit={handleSubmit}>
+        <div className="loginContainer flex">
+            <form className="bg-white p-6 rounded-lg shadow-md mt-10 loginComponent" onSubmit={handleSubmit}>
                 <div className="mb-5">
                     <TextField
                         type="email"

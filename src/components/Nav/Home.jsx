@@ -1,36 +1,48 @@
-import React from 'react'
+import React, { useState } from 'react';
 import Login from "../Auth/Login";
 import Navbar from "./Navbar";
-import { useState } from "react";
 import TimeTracker from '../Tasks/TimeTracker';
+
 const Home = () => {
-    const [user, setUser] = useState(null)
-    const [register, setRegister] = useState(false)
+    const [user, setUser] = useState(null);
+    const [register, setRegister] = useState(false);
+
     const handleLogin = (user) => {
         setUser(user);
-    }
+    };
+
     const handleLogout = () => {
         localStorage.removeItem('token');
         setUser(null);
-    }
+    };
+
     const handleRegister = () => {
         setRegister(prevState => !prevState);
-    }
+    };
+
     return (
         <div>
-            <Navbar user={user}
+            <Navbar
+                user={user}
                 register={register}
                 handleLogout={handleLogout}
                 handleRegister={handleRegister}
             />
-            {!user ?
-                <Login setLoggedInUser=
-                    {handleLogin}
-                    register={register}
-                /> : <TimeTracker user={user} />
+            {!user &&
+                <div className='homeBody min-h-screen'>
+
+                    <Login
+                        setLoggedInUser={handleLogin}
+                        register={register}
+                    />
+
+                </div>
             }
-        </div>
-    )
+            {user &&
+                <TimeTracker user={user} />
+            }
+        </div >
+    );
 }
 
-export default Home
+export default Home;

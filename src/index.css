@@ -44,9 +44,65 @@ body {
   cursor: pointer;
 }
 
-.select-register {
+/* .select-register {
   border: 1px solid rgb(249 115 22);
   border-radius: 2px;
   
+} */
+
+.homeBody {
+  background-image: url(./images/6237050.jpg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
 }
 
+@media (max-width: 480px) {
+  .homeBody {
+    background-image: none !important;
+    background-color: transparent;
+  }
+
+  .loginContainer {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .loginComponent {
+    width: 400px;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 992px) {
+  .homeBody {
+    background-image: none !important;
+    background-color: transparent;
+  }
+
+  .loginContainer {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .loginComponent {
+    width: 500px;
+  }
+}
+
+@media (min-width: 992px) {
+  .homeBody {
+    background-position: top left;
+  }
+
+  .loginContainer {
+    position: fixed;
+    right: 100px;
+    top: 180px;
+  }
+
+  .loginComponent {
+    width: 500px;
+  }
+}
