@@ -4,16 +4,27 @@ import { TextField, Button } from '@mui/material';
 
 const baseApiUrl = "https://time-tracker-api-3ixy.onrender.com/users/";
 
+/**
+ * Login handles both register and login authentication,
+ * @param  {register} indicates register or login
+ * @param  {setLoggedInUser} handler to set user in parent home
+ * @state {formData}  consists of username and password
+ * @state {message} to show status of request
+ * @state {messageType} error or success
+ * @function {handleSubmit} POST request for authentication
+ * @function {handleChange} updates username and password states
+ */
 const Login = ({ setLoggedInUser, register }) => {
     const [formData, setFormData] = useState({ username: '', password: '' });
     const [message, setMessage] = useState('');
-    const [messageType, setMessageType] = useState(''); // 'error' or 'success'
+    const [messageType, setMessageType] = useState('');
 
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData(prevState => ({ ...prevState, [name]: value }));
     };
 
+    // request to API depending on register
     const handleSubmit = async (e) => {
         e.preventDefault();
         const endpoint = register ? 'register' : 'login';
@@ -33,6 +44,7 @@ const Login = ({ setLoggedInUser, register }) => {
         }
     };
 
+    // styles
     const textFieldStyle = {
         '& .MuiInputLabel-root': {
             fontSize: '12px',
@@ -51,7 +63,7 @@ const Login = ({ setLoggedInUser, register }) => {
             },
         },
         '& .MuiInputLabel-root.Mui-focused': {
-            color: 'orange', // Change label color when focused
+            color: 'orange',
         },
     };
 

@@ -24,37 +24,45 @@ const buttonStyles = {
     backgroundColor: 'transparent',
   },
 };
-
+/**
+ * FilterBar consists the filter components,
+ * @param  {handleSearch} handler for filtering tasks 
+ * @state {filter} contains the queries
+ * @state {open} state to show alert error for dates select
+ * @function {updateFilter} update filter and error if date2 < date1
+ * @function {handleDate1} check if valid wrt date2
+ * @function {handleDate2} check if valid wrt date1
+ * @function {handleTagChange} updates filter.tag
+ */
 const FilterBar = ({ handleSearch }) => {
-  const [filter, setFilter] = useState({ date1: null, date2: null, tag: '' });
+  const [filter, setFilter] = useState({ date1: null, date2: null, tag: '', error: false });
   const [open, setOpen] = useState(false);
 
   const alertClose = () => {
     setOpen(false);
   }
-  const handleDate1 = (newDate1) => {
+  const updateFilter = (dateType, newDate, isValid) => {
     setFilter((prevFilter) => ({
       ...prevFilter,
-      date1: newDate1,
+      [dateType]: newDate,
+      error: !isValid
     }));
-  };
-
-  const handleDate2 = (newDate2) => {
-    if (filter.date1 && newDate2 >= filter.date1) {
-      setFilter((prevFilter) => ({
-        ...prevFilter,
-        date2: newDate2,
-      }));
-    } else {
-      setFilter((prevFilter) => ({
-        ...prevFilter,
-        date2: null,
-      }));
-
+    
+    if (!isValid) {
       setOpen(true);
     }
-
   };
+  
+  const handleDate1 = (newDate1) => {
+    const isValid = filter.date2 == null || newDate1 <= filter.date2;
+    updateFilter('date1', newDate1, isValid);
+  };
+  
+  const handleDate2 = (newDate2) => {
+    const isValid = filter.date1 && newDate2 >= filter.date1;
+    updateFilter('date2', newDate2, isValid);
+  };
+  
 
   const handleTagChange = (event) => {
     setFilter((prevFilter) => ({
@@ -62,7 +70,7 @@ const FilterBar = ({ handleSearch }) => {
       tag: event.target.value,
     }));
   };
-  
+
   return (
     <>{open && <AlertDate open={open} onClose={alertClose} />}
       <div
@@ -93,6 +101,7 @@ const FilterBar = ({ handleSearch }) => {
           <Button
             variant="text"
             sx={buttonStyles}
+            disabled={filter.error}
             onClick={() => handleSearch(filter)}
           >
             Search

@@ -18,7 +18,7 @@ const CreateDialog = ({ openNew, handleNew, user }) => {
             color: 'white',
         },
     };
-
+    // POST  request to insert document in database
     const createTask = async (activity) => {
         const taskData = {
             task: activity,

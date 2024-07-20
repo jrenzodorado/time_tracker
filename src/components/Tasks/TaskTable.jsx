@@ -24,7 +24,16 @@ const columns = [
     { id: 'date', label: 'Date Logged', minWidth: 100 },
     { id: 'code', label: 'Task', minWidth: 200 },
 ];
-
+/**
+ * TaskTable renders table, customized materials ui table with pagination
+ * @param {tasks} checkins of current user
+ * @param {handleDelete} delete handler
+ * @param {handleCreate} create handler
+ * @state {page} state 
+ * @state {rowsPerPage} state
+ * @function {handleChangePage} change page, tasks are calculated on render
+ * @function {handleChangeRowsPerPage} change number of rows onClick
+ */
 const TaskTable = ({ tasks, handleDelete, handleCreate }) => {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);

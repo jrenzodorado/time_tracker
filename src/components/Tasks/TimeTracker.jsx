@@ -5,6 +5,22 @@ import DeleteDialog from './DeleteDialog';
 import CreateDialog from './CreateDialog';
 import FilterBar from './FilterBar';
 
+
+/**
+ * TimeTracker main component for the checkin feature,
+ * @param  {user} 
+ * @state {tasks}  state to contain tasks of user
+ * @state {dateRange} state to contain initial dates
+ * @state {dialogState} state to contain dialog for delete and create
+ * @function {handleDelete} handler retrieving taskId of current selected task for deletion
+ *            and opening DeleteDialog modal
+ * @function {handleClose} on decision of DeleteDialog, a request is sent to API
+ * @function {handleCreate} handler to set CreateDialog to show
+ * @function {handleNew} on decision of CreateDialog, local array of tasks get updated
+ * @function {toISOStringWithTime} convert to ISO and format time
+ * @function {handleSearch} filters tasks depends on data callback
+ * @function {fetchDefault} initial tasks are set to be within current month, called by useEffect
+ */
 const TimeTracker = ({ user }) => {
     const [tasks, setTasks] = useState([]);
     const [dateRange, setDateRange] = useState({ date1: null, date2: null });
@@ -18,6 +34,8 @@ const TimeTracker = ({ user }) => {
         if (confirm && dialogState.toDelete) {
             try {
                 await axios.delete(`https://time-tracker-api-3ixy.onrender.com/tasks/${dialogState.toDelete}`);
+                // after server update, tasks array are locally altered not requiring another request 
+                // to be made for updated list 
                 setTasks(prevTasks => prevTasks.filter(task => task._id !== dialogState.toDelete));
             } catch (error) {
                 console.error('Error deleting the task:', error);
@@ -26,16 +44,19 @@ const TimeTracker = ({ user }) => {
         setDialogState(prevState => ({ ...prevState, openDelete: false, toDelete: null }));
     }, [dialogState.toDelete]);
 
+    const handleCreate = useCallback(() => {
+        setDialogState(prevState => ({ ...prevState, openNew: true }));
+    }, []);
+
     const handleNew = useCallback((confirm, data) => {
+        // only updates local array as request is made in CreateDialog
         if (confirm) {
             setTasks(prevTasks => [...prevTasks, data.taskItem]);
         }
         setDialogState(prevState => ({ ...prevState, openNew: false }));
     }, []);
 
-    const handleCreate = useCallback(() => {
-        setDialogState(prevState => ({ ...prevState, openNew: true }));
-    }, []);
+
 
     const toISOStringWithTime = (date, time) => {
         if (!date) return null;
