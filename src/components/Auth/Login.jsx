@@ -24,11 +24,12 @@ const Login = ({ setLoggedInUser, register }) => {
             localStorage.setItem('token', data.token);
             setLoggedInUser(data.userId);
             setMessage('Logged in successfully');
-            setMessageType('success'); 
-            setFormData({ username: '', password: '' }); 
+            setMessageType('success');
+            setFormData({ username: '', password: '' });
         } catch (err) {
-            setMessage('Invalid credentials');
-            setMessageType('error'); 
+            const message = register ? 'User already exists!' : 'Invalid credentials!'
+            setMessage(message);
+            setMessageType('error');
         }
     };
 
@@ -36,7 +37,7 @@ const Login = ({ setLoggedInUser, register }) => {
         '& .MuiInputLabel-root': {
             fontSize: '12px',
             color: 'black',
-            transition: 'color 0.3s', 
+            transition: 'color 0.3s',
         },
         '& .MuiOutlinedInput-root': {
             '& fieldset': {
