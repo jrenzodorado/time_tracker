@@ -3,6 +3,7 @@ import axios from 'axios';
 import TaskTable from './TaskTable';
 import DeleteDialog from './DeleteDialog';
 import CreateDialog from './CreateDialog';
+import FilterBar from './FilterBar';
 
 const TimeTracker = ({ user }) => {
     const [tasks, setTasks] = useState([]);
@@ -29,7 +30,7 @@ const TimeTracker = ({ user }) => {
         setOpen(false);
     };
     const handleNew = async (confirm, data) => {
-        if(confirm){
+        if (confirm) {
             setTasks(prevTasks => [...prevTasks, data.taskItem]);
         }
         setNewItem(false);
@@ -75,13 +76,19 @@ const TimeTracker = ({ user }) => {
         <>
             <DeleteDialog open={open} handleClose={handleClose} />
             <CreateDialog openNew={newItem} handleNew={handleNew} user={user} />
-            <div className="flex items-start justify-center min-h-screen bg-gray-100 ">
-                <TaskTable
-                    tasks={tasks}
-                    handleDelete={handleDelete}
-                    handleCreate={handleCreate}
-                />
+            <div className="flex flex-col items-center min-h-screen bg-gray-100">
+                <div className='bg-white rounded-lg shadow-md min-w-[400px] md:min-w-[750px] mt-10 mx-auto'>
+                    <FilterBar />
+                    <TaskTable
+                        tasks={tasks}
+                        handleDelete={handleDelete}
+                        handleCreate={handleCreate}
+                        className="w-full"
+                    />
+                </div>
             </div>
+
+
         </>
     );
 };

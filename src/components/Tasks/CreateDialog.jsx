@@ -7,10 +7,15 @@ const CreateDialog = ({ openNew, handleNew, user }) => {
     const handleInputChange = (event) => {
         setActivity(event.target.value);
     };
-
+    const buttonStyles = {
+        color: 'rgb(249 115 22)',
+        '&:hover': {
+            backgroundColor: 'rgb(249 115 22)',
+            color: 'white',
+        },
+    };
     const createTask = async (activity) => {
 
-        // Logic to handle the creation of the task using the activity value
         const taskData = {
             task: activity,
             createdBy: user
@@ -21,8 +26,6 @@ const CreateDialog = ({ openNew, handleNew, user }) => {
         } catch (error) {
             setLabelA('Invalid Format');
         }
-        // Example API call using Axios
-        // await axios.post('/api/tasks', { activity });
     };
 
     return (
@@ -66,36 +69,21 @@ const CreateDialog = ({ openNew, handleNew, user }) => {
                         '& .MuiInputBase-input': {
                             fontSize: '12px',
                         },
-                        '& .MuiInput-underline:before': {
-                            borderBottomColor: 'orange',
-                        },
-                        '& .MuiInput-underline:after': {
+                        '& .MuiInput-underline:before, & .MuiInput-underline:after': {
                             borderBottomColor: 'orange',
                         },
                         '& .MuiInputLabel-root': {
                             color: 'orange',
-                        },
-                        '& .MuiInputLabel-root.Mui-focused': {
-                            color: 'orange',
+                            '&.Mui-focused': {
+                                color: 'orange',
+                            },
                         },
                     }}
                 />
             </DialogContent>
-            <DialogActions >
-                <Button onClick={() => handleNew(false,'')} sx={{
-                    color: 'rgb(249 115 22)',
-                    '&:hover': {
-                        backgroundColor: 'rgb(249 115 22)',
-                        color: 'white',
-                    },
-                }}>Cancel</Button>
-                <Button type="submit" sx={{
-                    color: 'rgb(249 115 22)',
-                    '&:hover': {
-                        backgroundColor: 'rgb(249 115 22)',
-                        color: 'white',
-                    },
-                }}>Submit</Button>
+            <DialogActions>
+                <Button onClick={() => handleNew(false, '')} sx={buttonStyles}>Cancel</Button>
+                <Button type="submit" sx={buttonStyles}>Submit</Button>
             </DialogActions>
         </Dialog>
     );

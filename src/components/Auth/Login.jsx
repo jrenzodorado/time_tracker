@@ -1,78 +1,107 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import axios from 'axios';
+import { TextField, Button } from '@mui/material';
+
+const baseApiUrl = "https://time-tracker-api-3ixy.onrender.com/users/";
+
 const Login = ({ setLoggedInUser, register }) => {
     const [formData, setFormData] = useState({
         username: '',
         password: ''
     });
     const [message, setMessage] = useState('');
-    const { username, password } = formData;
 
-    const onChange = e => setFormData({
-        ...formData,
-        [e.target.name]: e.target.value
-    });
-    let api_url = "https://time-tracker-api-3ixy.onrender.com/users/";
+    const onChange = e => {
+        const { name, value } = e.target;
+        setFormData(prevState => ({ ...prevState, [name]: value }));
+    };
+
     const onSubmit = async e => {
         e.preventDefault();
+        const endpoint = register ? 'register' : 'login';
+        const apiUrl = `${baseApiUrl}${endpoint}`;
         try {
-            api_url = api_url + (register ? 'register' : 'login');
-            const res =
-                await axios.post(api_url,
-                    {
-                        username: username,
-                        password: password
-                    });
-            localStorage.setItem('token', res.data.token);
-            setLoggedInUser(res.data.userId);
-
-            // Set success message
+            const { data } = await axios.post(apiUrl, formData);
+            localStorage.setItem('token', data.token);
+            setLoggedInUser(data.userId);
             setMessage('Logged in successfully');
-            setFormData({
-                ...formData,
-                password: ''
-            });
+            setFormData(prevState => ({ ...prevState, password: '' }));
         } catch (err) {
-            // Set error message
             setMessage('Invalid credentials');
         }
     };
-    return (
 
+    const textFieldStyle = {
+        '& .MuiInputLabel-root': {
+            fontSize: '12px',
+            color: 'black',
+            transition: 'color 0.3s',  // Smooth transition for label color change
+        },
+        '& .MuiOutlinedInput-root': {
+            '& fieldset': {
+                borderColor: 'gray',
+            },
+            '&:hover fieldset': {
+                borderColor: 'orange',
+            },
+            '&.Mui-focused fieldset': {
+                borderColor: 'orange',
+            },
+        },
+        '& .MuiInputLabel-root.Mui-focused': {
+            color: 'orange',  // Change label color when focused
+        },
+    };
+
+    return (
         <div className="flex items-start justify-center min-h-screen bg-gray-100">
-            <form className=" bg-white p-6 rounded-lg shadow-md  min-w-[400px] mt-10" onSubmit={onSubmit}>
+            <form className="bg-white p-6 rounded-lg shadow-md min-w-[400px] mt-10" onSubmit={onSubmit}>
                 <div className="mb-5">
-                    <label htmlFor="email" className="block mb-2 text-sm font-medium text-black">Your email</label>
-                    <input
+                    <TextField
                         type="email"
                         id="email"
-                        className="bg-white border border-orange-500 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5"
+                        label="Your email"
                         placeholder="name@thinkingmachines.com"
                         name="username"
-                        value={username}
+                        value={formData.username}
                         onChange={onChange}
                         required
+                        variant="outlined"
+                        fullWidth
+                        sx={textFieldStyle}
                     />
                 </div>
                 <div className="mb-2">
-                    <label htmlFor="password" className="block mb-2 text-sm font-medium text-black">Your password</label>
-                    <input
+                    <TextField
                         type="password"
                         id="password"
-                        className="bg-white border border-orange-500 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5"
+                        label="Your password"
                         name="password"
-                        value={password}
+                        value={formData.password}
                         onChange={onChange}
                         required
+                        variant="outlined"
+                        fullWidth
+                        sx={textFieldStyle}
                     />
                 </div>
-                <p className="text-xs text-gray-500 mb-5">{message}</p>
-                <button type="submit" className="text-white bg-orange-500 hover:bg-orange-600 focus:ring-4 focus:outline-none focus:ring-orange-500 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Submit</button>
+                {message && <p className="text-xs text-gray-500 mb-5">{message}</p>}
+                <Button
+                    type="submit"
+                    variant="contained"
+                    color="warning"
+                    sx={{
+                        width: '100%',
+                        mt: 2,
+                        textTransform: 'none',
+                        fontSize: '14px',
+                    }}
+                >
+                    Submit
+                </Button>
             </form>
         </div>
+    );
+};
 
-
-    )
-}
-
-export default Login
+export default Login;
