@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import * as React from 'react';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 const datePickerStyles = {
@@ -16,21 +16,19 @@ const datePickerStyles = {
   },
 };
 
-const TwoDatePicker = () => {
-  const [value, setValue] = useState(null);
-
+const TwoDatePicker = ({ date1, date2, handleDate1, handleDate2 }) => {
   return (
     <div style={{ display: 'flex', gap: '5px' }}>
       <DatePicker
-        value={value}
-        onChange={(newValue) => setValue(newValue)}
+        value={date1}
+        onChange={(newValue) => handleDate1(newValue)}
         slotProps={{
           textField: { sx: datePickerStyles },
         }}
       />
       <DatePicker
-        value={value}
-        onChange={(newValue) => setValue(newValue)}
+        value={date2}
+        onChange={(newValue) => handleDate2(newValue)}
         slotProps={{
           textField: { sx: datePickerStyles },
         }}

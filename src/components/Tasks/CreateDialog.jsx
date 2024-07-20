@@ -1,12 +1,16 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from '@mui/material';
 import axios from 'axios';
+
 const CreateDialog = ({ openNew, handleNew, user }) => {
     const [activity, setActivity] = useState('');
-    const [labelA, setLabelA] = useState('check-in activity')
+    const [labelA, setLabelA] = useState('check-in activity');
+    const [hasError, setHasError] = useState(false);
+
     const handleInputChange = (event) => {
         setActivity(event.target.value);
     };
+
     const buttonStyles = {
         color: 'rgb(249 115 22)',
         '&:hover': {
@@ -14,17 +18,19 @@ const CreateDialog = ({ openNew, handleNew, user }) => {
             color: 'white',
         },
     };
-    const createTask = async (activity) => {
 
+    const createTask = async (activity) => {
         const taskData = {
             task: activity,
-            createdBy: user
+            createdBy: user,
         };
         try {
-            const res = await axios.post(`https://time-tracker-api-3ixy.onrender.com/tasks/new`, taskData);
+            const res = await axios.post('https://time-tracker-api-3ixy.onrender.com/tasks/new', taskData);
             handleNew(true, res.data);
+            setHasError(false); 
         } catch (error) {
             setLabelA('Invalid Format');
+            setHasError(true); 
         }
     };
 
@@ -44,8 +50,9 @@ const CreateDialog = ({ openNew, handleNew, user }) => {
                     backgroundColor: 'rgb(249 115 22)',
                     color: 'white',
                     padding: '5px',
-                    fontSize: '16px'
-                }}>
+                    fontSize: '16px',
+                }}
+            >
                 Create
             </DialogTitle>
             <DialogContent sx={{ marginTop: '5px' }}>
@@ -73,9 +80,9 @@ const CreateDialog = ({ openNew, handleNew, user }) => {
                             borderBottomColor: 'orange',
                         },
                         '& .MuiInputLabel-root': {
-                            color: 'orange',
+                            color: hasError ? 'red' : 'orange',
                             '&.Mui-focused': {
-                                color: 'orange',
+                                color: hasError ? 'red' : 'orange',
                             },
                         },
                     }}
@@ -87,6 +94,6 @@ const CreateDialog = ({ openNew, handleNew, user }) => {
             </DialogActions>
         </Dialog>
     );
-}
+};
 
 export default CreateDialog;
