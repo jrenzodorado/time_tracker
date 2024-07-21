@@ -1,5 +1,5 @@
 > [!IMPORTANT] 
-> Note that the microservices and this application is deployed in a free web hosting service, delay occurs on first login/registration attempt.
+> Note that the microservices and this application are deployed in a free web hosting service, delay occurs on first login/registration attempt.
 
 # Time Tracker
 
