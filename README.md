@@ -1,70 +1,37 @@
-# Getting Started with Create React App
+> [!IMPORTANT] 
+> Note that the microservices and this application is deployed in a free web hosting service, delay occurs on first login/registration attempt.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Time Tracker
 
-## Available Scripts
+This react application is designed to manage our time day to day. Helping track the tasks of everyone to help with productivity and time management.  
 
-In the project directory, you can run:
+The development of the backend project was cut into 3 main components.
 
-### `npm start`
+## Nav
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+For the project navigation was made logically with the use of hooks. Routing seemed irrelevant as only 2 screens are needed to be shown in this single page application.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Auth
 
-### `npm test`
+Authentication is handled by the login form component. This is used for registration as well to avoid redundant code. Only simple auth is utilized in this project to simulate user experience.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+## Tasks
+The highlight of the project is the checkin view. Here a user can track his activities, input an entry, and filter what activities are in his view.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### To initialize the project:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
+npm install
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### To run the project:
 
-### `npm run eject`
+```
+npm start
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Dependencies:
+* Material UI [icons, date picker, table] [docs](https://mui.com/material-ui/getting-started/)
+* Axios [docs](https://axios-http.com/docs/intro)
+* Tailwind css [docs](https://tailwindcss.com/)
