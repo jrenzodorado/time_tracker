@@ -1,12 +1,12 @@
 > [!IMPORTANT] 
-> Note that the microservices and this application are deployed in a free web hosting service, delay occurs on first login/registration attempt.
+> Note that the microservices and this application are deployed in a free web hosting service, error might occur on first login/registration attempt as microservice initializes.
 
 # Time Tracker
 
 This react application is designed to manage our time day to day. Helping track the tasks of everyone to help with productivity and time management.  
 
 To view project demo, click [here](https://time-tracker-wev9.onrender.com/).
-
+Account: demo@thinkingmachines.com Password: 1234
 The development of the backend project was cut into 3 main components.
 
 ## Nav
