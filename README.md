@@ -5,6 +5,8 @@
 
 This react application is designed to manage our time day to day. Helping track the tasks of everyone to help with productivity and time management.  
 
+To view project demo, click [here](https://time-tracker-wev9.onrender.com/).
+
 The development of the backend project was cut into 3 main components.
 
 ## Nav
