@@ -5,10 +5,10 @@ import DeleteDialog from './DeleteDialog';
 import CreateDialog from './CreateDialog';
 import FilterBar from './FilterBar';
 
-
 /**
  * TimeTracker main component for the checkin feature,
  * @param  {user} 
+ * @state {parentPage} toggle to re-render taskTable
  * @state {tasks}  state to contain tasks of user
  * @state {dateRange} state to contain initial dates
  * @state {dialogState} state to contain dialog for delete and create
@@ -22,6 +22,7 @@ import FilterBar from './FilterBar';
  * @function {fetchDefault} initial tasks are set to be within current month, called by useEffect
  */
 const TimeTracker = ({ user }) => {
+    const [parentPage, setParent] = useState(false);
     const [tasks, setTasks] = useState([]);
     const [dateRange, setDateRange] = useState({ date1: null, date2: null });
     const [dialogState, setDialogState] = useState({ openDelete: false, toDelete: null, openNew: false });
@@ -37,6 +38,7 @@ const TimeTracker = ({ user }) => {
                 // after server update, tasks array are locally altered not requiring another request 
                 // to be made for updated list 
                 setTasks(prevTasks => prevTasks.filter(task => task._id !== dialogState.toDelete));
+                setParent(prevState => !prevState);
             } catch (error) {
                 console.error('Error deleting the task:', error);
             }
@@ -52,11 +54,10 @@ const TimeTracker = ({ user }) => {
         // only updates local array as request is made in CreateDialog
         if (confirm) {
             setTasks(prevTasks => [...prevTasks, data.taskItem]);
+            setParent(prevState => !prevState);
         }
         setDialogState(prevState => ({ ...prevState, openNew: false }));
     }, []);
-
-
 
     const toISOStringWithTime = (date, time) => {
         if (!date) return null;
@@ -72,7 +73,6 @@ const TimeTracker = ({ user }) => {
         date2Obj.setDate(date2Obj.getDate() + 1);
         const isoDate2 = toISOStringWithTime(date2Obj, '23:59:59');
 
-
         try {
             const res = await axios.get('https://time-tracker-api-3ixy.onrender.com/tasks/', {
                 params: {
@@ -83,6 +83,7 @@ const TimeTracker = ({ user }) => {
                 }
             });
             setTasks(res.data);
+            setParent(prevState => !prevState);
         } catch (error) {
             console.error('Error fetching tasks:', error);
         }
@@ -125,9 +126,11 @@ const TimeTracker = ({ user }) => {
                 <div className="bg-white rounded-lg shadow-md min-w-[400px] md:min-w-[750px] mt-10 mx-auto">
                     <FilterBar handleSearch={handleSearch} />
                     <TaskTable
+                        key={parentPage}  // This will reset the TaskTable component
                         tasks={tasks}
                         handleDelete={handleDelete}
                         handleCreate={handleCreate}
+                        parentPage={parentPage} 
                         className="w-full"
                     />
                 </div>
