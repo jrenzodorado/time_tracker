@@ -9,7 +9,7 @@ To view project demo, click [here](https://time-tracker-wev9.onrender.com/).
 
 Account: demo@thinkingmachines.com Password: 1234
 
-The development of the backend project was cut into 3 main components.
+The development of the project was cut into 3 main components.
 
 ## Nav
 
