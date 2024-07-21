@@ -13,7 +13,7 @@ The development of the backend project was cut into 3 main components.
 
 ## Nav
 
-For the project navigation was made logically with the use of hooks. Routing seemed irrelevant as only 2 screens are needed to be shown in this single page application.
+For the project navigation was made logically with the use of states. Routing seemed irrelevant as only 2 screens are needed to be shown in this single page application.
 
 ## Auth
 
