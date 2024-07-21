@@ -1,5 +1,5 @@
-> [!IMPORTANT] 
-> Note that the microservices and this application are deployed in a free web hosting service, error might occur on first login/registration attempt as microservice initializes.
+> [!NOTE] 
+> Time Tracker application is developed by Joshua Renzo Dorado in his application with Thinking Machines. 
 
 # Time Tracker
 
