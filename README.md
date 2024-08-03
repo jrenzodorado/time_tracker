@@ -1,5 +1,5 @@
 > [!NOTE] 
-> Time Tracker application is developed by Joshua Renzo Dorado in his application with Thinking Machines. 
+> Time Tracker single page application developed by Joshua Renzo Dorado to track/log activities. 
 
 # Time Tracker
 
@@ -7,7 +7,7 @@ This react application is designed to manage our time day to day. Helping track 
 
 To view project demo, click [here](https://time-tracker-wev9.onrender.com/).
 
-Account: demo@thinkingmachines.com Password: 1234
+Account: demo@mailer.com Password: 1234
 
 The development of the project was cut into 3 main components.
 
